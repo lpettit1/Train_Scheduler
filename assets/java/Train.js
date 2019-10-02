@@ -1,16 +1,16 @@
 
-
+    $(document).ready(function() {
     // Your web app's Firebase configuration
-    var firebaseConfig = {
-    apiKey: "AIzaSyCHPfDC9Y2MlEvpBF1G94IANkk7hCWG5l8",
-    authDomain: "train-time-7c34d.firebaseapp.com",
-    databaseURL: "https://train-time-7c34d.firebaseio.com",
-    projectId: "train-time-7c34d",
-    storageBucket: "train-time-7c34d.appspot.com",
-    messagingSenderId: "974364918425",
-    appId: "1:974364918425:web:b099c92436da354b49ae08",
-    measurementId: "G-3E6VNXYFMW"
-    };
+    const firebaseConfig = {
+        apiKey: "AIzaSyCHPfDC9Y2MlEvpBF1G94IANkk7hCWG5l8",
+        authDomain: "train-time-7c34d.firebaseapp.com",
+        databaseURL: "https://train-time-7c34d.firebaseio.com",
+        projectId: "train-time-7c34d",
+        storageBucket: "train-time-7c34d.appspot.com",
+        messagingSenderId: "974364918425",
+        appId: "1:974364918425:web:b099c92436da354b49ae08",
+        measurementId: "G-3E6VNXYFMW"
+      };
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
     var database = firebase.database();
@@ -23,7 +23,7 @@
     // grabs user input
     var trainName = $("#train-name-input").val().trim();
     var destination = $("#destination-input").val().trim();
-    var firstTrainTime = moment($("#first-train-time-input").val().trim(), "HH:MM-military time").format("x");
+    var firstTrainTime = moment($("#first-train-input").val().trim(), "HH:MM-military time").format("x");
     var frequency = $("#frequency-input").val().trim();
 
     //temporary object holding train data
@@ -49,7 +49,7 @@
     //clears text-box's
     $("#train-name-input").val("");
     $("#destination-input").val("");
-    $("#first-train-time-input").val("");
+    $("#first-train-input").val("");
     $("#frequency-input").val("");
 
     });
@@ -71,9 +71,9 @@
     console.log(frequency);
 
     //start of the time math
-    var frequency = 30;
+    var frequency;
 
-    var firstTrainTime = "06:00";
+    var firstTrainTime = 0 ;
 
 
     // calculate train time w/math
@@ -83,7 +83,7 @@
     var currentTime = moment();
     console.log("CURRENT TIME: " + moment(currentTime).format("HH:mm"));
     //difference between times
-    var diffTime = moment().diff(moment(firstTrainTimePretty), "minutes");
+    var diffTime = moment().diff(moment(firstTrainTime), "minutes");
     console.log("DIFFERENCE IN TIME: " + diffTime);
     //time apart
     var tRemainder = diffTime % frequency;
@@ -96,9 +96,9 @@
     var nextTrain = moment().add(tMinutesTillTrain, "minutes");
     console.log("ARRIVAL TIME: " + moment(nextTrain).format('HH:mm'));
     //add train data into table
-    $("#train-table > tbody").append("<tr><td." + trainName + "</td><td>" + destination + "</td><td>" + frequency + 
+    $("#train-table > tbody").append("<tr><td>" + trainName + "</td><td>" + destination + "</td><td>" + frequency + 
     "</td><td>" + moment(nextTrain).format("HH:mm") + "</td><td>" +tMinutesTillTrain + "</td></tr>");
 
 
     });
-
+});
